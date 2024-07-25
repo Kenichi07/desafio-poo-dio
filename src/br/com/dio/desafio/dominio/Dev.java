@@ -1,9 +1,6 @@
 package br.com.dio.desafio.dominio;
 
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class Dev {
     private String nome;
@@ -16,13 +13,28 @@ public class Dev {
     }
 
     public void progredir() {
-        Optional<Conteudo> conteudo = this.conteudosInscristos.stream().findFirst();
+        /*Optional<Conteudo> conteudo = this.conteudosInscristos.stream().findFirst();
         if(conteudo.isPresent()){
             this.conteudosConcluidos.add(conteudo.get());
             this.conteudosInscristos.remove(conteudo.get());
         } else {
             System.out.println("Você não está matriculado em nenhum conteúdo!");
         }
+
+        this.conteudosInscristos.stream().findFirst().ifPresentOrElse(conteudo -> {
+            this.conteudosConcluidos.add(conteudo);
+            this.conteudosInscristos.remove(conteudo);
+        }, () -> System.out.println("Você não está matriculado em nenhum conteúdo!"));
+        */
+        Iterator<Conteudo> iterator = this.conteudosInscristos.iterator();
+        if (iterator.hasNext()) {
+            Conteudo conteudo = iterator.next();
+            this.conteudosConcluidos.add(conteudo);
+            iterator.remove();
+        } else {
+            System.out.println("Você não está matriculado em nenhum conteúdo!");
+        }
+
     }
 
     public double calcularTotaLXp() {
